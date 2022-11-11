@@ -8,9 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
   <head>
-    <title>$Title$</title>
+    <title>The School Hunter</title>
   </head>
   <body>
-  $END$
+  <h1>The School Hunter</h1>
+  <h2>——校园猎人</h2>
   </body>
 </html>
