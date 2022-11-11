@@ -25,14 +25,8 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="Tomcat 9.0.21" level="application_server_libraries" />
-    <orderEntry type="module-library">
-      <library>
-        <CLASSES>
-          <root url="jar://D:/apache-tomcat-9.0.21/lib/servlet-api.jar!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
+    <orderEntry type="library" name="mysql-connector-j-8.0.31 (2)" level="project" />
+    <orderEntry type="library" name="servlet-api (2)" level="project" />
+    <orderEntry type="library" name="mysql-connector" level="project" />
   </component>
 </module>
