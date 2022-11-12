@@ -4,4 +4,13 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0" metadata-complete="false">
 
+    <servlet>
+        <servlet-name>World</servlet-name>
+        <servlet-class>World</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>World</servlet-name>
+        <url-pattern>/World</url-pattern>
+    </servlet-mapping>
+
 </web-app>
