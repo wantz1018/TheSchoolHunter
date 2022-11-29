@@ -13,17 +13,6 @@ public class Mission {
         return id;
     }
 
-    public Mission(){}
-
-    public Mission(String id, String icon, String title, String content, String mdate, String mplace, String rewards) {
-        this.id = id;
-        this.icon = icon;
-        this.title = title;
-        this.content = content;
-        this.mdate = mdate;
-        this.mplace = mplace;
-        this.rewards = rewards;
-    }
 
     public void setId(String id) {
         this.id = id;
