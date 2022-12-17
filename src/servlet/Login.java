@@ -33,7 +33,7 @@ public class Login extends HttpServlet {
             }
             else{
                 //登录成功
-                str = "{\"code\":1. \"message\":\"success\"}";
+                str = "{\"code\":1, \"message\":\"success\"}";
                 request.getSession().setAttribute("username", request.getRemoteAddr()+username);
 //                添加Cookie
                 Cookie cookie = new Cookie("JSESSIONID", request.getSession().getId());
