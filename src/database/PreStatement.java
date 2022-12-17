@@ -5,10 +5,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import functions.TransTimeRange;
-
 
 public class PreStatement {
+
     public ResultSet execute(String id) throws SQLException, ClassNotFoundException {
         Connection connection;
         ResultSet resultSet;
@@ -20,6 +19,17 @@ public class PreStatement {
         preparedStatement.execute();
         resultSet = preparedStatement.getResultSet();
         return resultSet;
+    }
+    public static ResultSet execute(String sql, String[] params) throws SQLException, ClassNotFoundException {
+        Connection connection;
+        PreparedStatement preparedStatement;
+        connection = DatabaseConnection.getConnection();
+        preparedStatement = connection.prepareStatement(sql);
+        for (int i=1; i<=params.length; i++){
+            preparedStatement.setString(i, params[i-1]);
+        }
+        preparedStatement.execute();
+        return preparedStatement.getResultSet();
     }
 
     /**
@@ -39,5 +49,6 @@ public class PreStatement {
         String sql = "select id, icon, title, content, mdate, mplace, rewards from mission where";
         return resultSet;
     }
+    
 
 }

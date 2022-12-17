@@ -16,19 +16,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-//@WebServlet(name = "missionlist", value = "/missionlist")
-@WebServlet("/categories/missionlist")
+@WebServlet("/api/missionList")
 public class MissionList extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json;charset=utf-8");
         response.setCharacterEncoding("UTF-8");
 
 //        获取请求参数
-        String req_page = request.getParameter("_page");
-        String req_limit = request.getParameter("_limit");
-        String req_place = request.getParameter("_place");
-        String req_timeRange = request.getParameter("_timeRange");
-        String req_order = request.getParameter("_order");
+        String req_page = request.getParameter("page");
+        String req_limit = request.getParameter("limit");
+        String req_place = request.getParameter("place");
+        String req_timeRange = request.getParameter("timeRange");
+        String req_order = request.getParameter("order");
+
+        //设置默认值
 
         MissionsList missionsList = new MissionsList();
         PrintWriter res;
@@ -50,7 +51,9 @@ public class MissionList extends HttpServlet {
             }
             missionsList.setMission(missions);
             String str = JSONObject.toJSONString(missionsList);
-            res.write(str);
+            res.write(
+                    "{\"code\":1,\"message\":\"success\",\"data\":"+ str+"}"
+            );
             res.close();
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
