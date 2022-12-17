@@ -35,7 +35,7 @@ public class Login extends HttpServlet {
                 //登录成功
                 str = "{\"code\":1, \"message\":\"success\"}";
                 request.getSession().setAttribute("username", request.getRemoteAddr()+username);
-//                添加Cookie
+                //添加Cookie
                 Cookie cookie = new Cookie("JSESSIONID", request.getSession().getId());
                 cookie.setMaxAge(60*100);
                 cookie.setPath("/");
