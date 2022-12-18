@@ -2,6 +2,7 @@ package servlet;
 
 import com.aliyun.oss.*;
 import com.aliyun.oss.model.PutObjectRequest;
+import functions.GetALYJson;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -10,7 +11,6 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.*;
-import java.util.Date;
 import java.util.List;
 
 @WebServlet(name = "upload", value = "/api/upload")
@@ -22,11 +22,7 @@ public class Upload extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        /*
-        用户登录名称 tsh@1112453989480552.onaliyun.com
-        AccessKey ID LTAI5tGzFYeQTuTBdKSx6C88
-        AccessKey Secret essaD8Sz6v6UUOJLy8L8CC4G2RtFsw
-         */
+
         try {
             DiskFileItemFactory factory = new DiskFileItemFactory();
             ServletFileUpload fileUpload = new ServletFileUpload(factory);
@@ -74,13 +70,16 @@ public class Upload extends HttpServlet {
     }
 
     private String upload(String filename, File file) throws Exception{
-        String endpoint = "https://oss-cn-shenzhen.aliyuncs.com";
-        String accessKeyId = "LTAI5tGzFYeQTuTBdKSx6C88";
-        String accessKeySecret = "essaD8Sz6v6UUOJLy8L8CC4G2RtFsw";
-        String bucketName = "wantz-pic";
+        GetALYJson oss = new GetALYJson();
+        String accessKeyId = oss.getAccessKeyID();
+        String accessKeySecret = oss.getAccessKeySecret();
+        String endpoint = oss.getEndpoint();
+        String bucketName = oss.getBucketName();
+        String folder = oss.getFolder();
+
         OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
         try{
-            PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, "tsh/" + filename, file);
+            PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, folder + filename, file);
             ossClient.putObject(putObjectRequest);
             String url = "https://wantz-pic.oss-cn-shenzhen.aliyuncs.com/tsh/" + filename;
             file.delete();
