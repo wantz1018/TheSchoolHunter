@@ -10,8 +10,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Enumeration;
 
-@WebServlet(name = "/api/login", value = "/api/login")
+@WebServlet(name = "login", value = "/api/login")
 public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -20,6 +21,16 @@ public class Login extends HttpServlet {
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
+
+        System.out.println(request.getParameterNames());
+        Enumeration<String> parameterNames = request.getParameterNames();
+        while(parameterNames.hasMoreElements()){
+            String parameterName = parameterNames.nextElement();
+            if (!"username".equals(parameterName) && !"password".equals(parameterName)){
+                System.out.println(parameterName);
+            }
+        }
+
         ResultSet resultSet;
         PrintWriter res;
         res = response.getWriter();

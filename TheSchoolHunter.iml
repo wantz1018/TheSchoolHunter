@@ -23,7 +23,19 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" scope="PROVIDED" name="Tomcat 9.0.21" level="application_server_libraries" />
     <orderEntry type="library" name="mysql-connector-j-8.0.31" level="project" />
-    <orderEntry type="library" name="fastjson-2.0.19.graal" level="project" />
     <orderEntry type="library" name="fastjson-1.2.53" level="project" />
+    <orderEntry type="library" name="commons-io-2.11.0" level="project" />
+    <orderEntry type="library" name="aliyun-sdk-oss-3.15.0" level="project" />
+    <orderEntry type="library" name="commons-fileupload-1.4" level="project" />
+    <orderEntry type="library" name="httpclient5-5.2.1" level="project" />
+    <orderEntry type="library" name="httpcore5-5.2" level="project" />
+    <orderEntry type="library" name="httpcore5-h2-5.2" level="project" />
+    <orderEntry type="library" name="httpclient-4.5.14" level="project" />
+    <orderEntry type="library" name="httpcore-4.4.16" level="project" />
+    <orderEntry type="library" name="commons-logging-1.2" level="project" />
+    <orderEntry type="library" name="jdom2-2.0.6.1" level="project" />
+    <orderEntry type="library" name="javax.activation-api-1.2.0" level="project" />
+    <orderEntry type="library" name="jaxb-api-2.4.0-b180830.0359" level="project" />
+    <orderEntry type="library" name="commons-codec-1.15" level="project" />
   </component>
 </module>
