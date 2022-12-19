@@ -1,6 +1,7 @@
 package servlet;
 
 import com.aliyun.oss.*;
+import com.aliyun.oss.model.ObjectMetadata;
 import com.aliyun.oss.model.PutObjectRequest;
 import functions.GetALYJson;
 import org.apache.commons.fileupload.FileItem;
@@ -80,6 +81,9 @@ public class Upload extends HttpServlet {
         OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
         try{
             PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, folder + filename, file);
+            ObjectMetadata metadata = new ObjectMetadata();
+            metadata.setHeader("x-oss-forbid-overwrite", "true");//禁止覆盖同名文件
+            putObjectRequest.setMetadata(metadata);
             ossClient.putObject(putObjectRequest);
             String url = "https://wantz-pic.oss-cn-shenzhen.aliyuncs.com/tsh/" + filename;
             file.delete();

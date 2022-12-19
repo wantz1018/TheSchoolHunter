@@ -27,9 +27,6 @@
     <orderEntry type="library" name="commons-io-2.11.0" level="project" />
     <orderEntry type="library" name="aliyun-sdk-oss-3.15.0" level="project" />
     <orderEntry type="library" name="commons-fileupload-1.4" level="project" />
-    <orderEntry type="library" name="httpclient5-5.2.1" level="project" />
-    <orderEntry type="library" name="httpcore5-5.2" level="project" />
-    <orderEntry type="library" name="httpcore5-h2-5.2" level="project" />
     <orderEntry type="library" name="httpclient-4.5.14" level="project" />
     <orderEntry type="library" name="httpcore-4.4.16" level="project" />
     <orderEntry type="library" name="commons-logging-1.2" level="project" />

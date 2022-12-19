@@ -27,15 +27,12 @@ public class Register extends HttpServlet {
         try {
             resultSet = PreStatement.execute(sql, new String[]{username});
             if  (resultSet.next()){
-                str = "\"message\":\"user already exists\"";
+                str = "{\"code\":\"12\",\"message\":\"this user name already exists\"}";
             }
             else{
-                /*
-                这里可能是添加用户的ID，可能是数据库自己生成，也可能是程序生成
-                 */
                 sql = "insert into yonghu(username, password) values(?, ?)";
                 resultSet = PreStatement.execute(sql, new String[]{username, password});
-                str = "\"message\":\"success\"";
+                str = "{\"code\":\"1\",\"message\":\"success\"}";
             }
             res.write(str);
         } catch (SQLException | ClassNotFoundException e) {
