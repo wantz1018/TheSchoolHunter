@@ -27,6 +27,7 @@ public class Upload extends HttpServlet {
         try {
             DiskFileItemFactory factory = new DiskFileItemFactory();
             ServletFileUpload fileUpload = new ServletFileUpload(factory);
+            fileUpload.setHeaderEncoding("utf-8");
             if (!fileUpload.isMultipartContent(request)) {
                 //如果是普通表单
                 return;
@@ -45,7 +46,6 @@ public class Upload extends HttpServlet {
                     int len = 0;
                     byte[] buffer = new byte[1024];
                     String savePath = this.getServletContext().getRealPath("/");
-                    System.out.println(savePath);
                     FileOutputStream out = new FileOutputStream(savePath + "\\" + filename);
                     while ((len=in.read(buffer)) > 0){
                         out.write(buffer, 0, len);
@@ -53,14 +53,20 @@ public class Upload extends HttpServlet {
                     in.close();
                     out.close();
                     String url = upload(filename, new File(savePath + "\\" + filename));
-
                     response.setContentType("application/json;charset=utf-8");
                     response.setCharacterEncoding("UTF-8");
                     PrintWriter res;
                     res = response.getWriter();
-                    res.write(
-                            "{\"code\":1, \"message\":\"success\", \"url\":\"" + url + "\"}"
-                    );
+                    if (!"FileAlreadyExists".equals(url)) {
+                        res.write(
+                                "{\"code\":1, \"message\":\"success\", \"url\":\"" + url + "\"}"
+                        );
+                    }
+                    else{
+                        res.write(
+                                "{\"code\":21, \"message\":\"file already exists\", \"url\":\"null\"}"
+                        );
+                    }
                     res.close();
                 }
             }
@@ -77,7 +83,7 @@ public class Upload extends HttpServlet {
         String endpoint = oss.getEndpoint();
         String bucketName = oss.getBucketName();
         String folder = oss.getFolder();
-
+        String url = "";
         OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret);
         try{
             PutObjectRequest putObjectRequest = new PutObjectRequest(bucketName, folder + filename, file);
@@ -85,19 +91,20 @@ public class Upload extends HttpServlet {
             metadata.setHeader("x-oss-forbid-overwrite", "true");//禁止覆盖同名文件
             putObjectRequest.setMetadata(metadata);
             ossClient.putObject(putObjectRequest);
-            String url = "https://wantz-pic.oss-cn-shenzhen.aliyuncs.com/tsh/" + filename;
+            url = "https://wantz-pic.oss-cn-shenzhen.aliyuncs.com/tsh/" + filename;
             file.delete();
 //                System.out.println(url);
 //                System.out.println("https://wantz-pic.oss-cn-shenzhen.aliyuncs.com/tsh/"+filename);
             return url;
 
         }catch (OSSException oe) {
-            System.out.println("Caught an OSSException, which means your request made it to OSS, "
-                    + "but was rejected with an error response for some reason.");
-            System.out.println("Error Message:" + oe.getErrorMessage());
-            System.out.println("Error Code:" + oe.getErrorCode());
-            System.out.println("Request ID:" + oe.getRequestId());
-            System.out.println("Host ID:" + oe.getHostId());
+//            System.out.println("Caught an OSSException, which means your request made it to OSS, "
+//                    + "but was rejected with an error response for some reason.");
+//            System.out.println("Error Message:" + oe.getErrorMessage());
+//            System.out.println("Error Code:" + oe.getErrorCode());
+//            System.out.println("Request ID:" + oe.getRequestId());
+//            System.out.println("Host ID:" + oe.getHostId());
+            url = oe.getErrorCode();
         } catch (ClientException ce) {
             System.out.println("Caught an ClientException, which means the client encountered "
                     + "a serious internal problem while trying to communicate with OSS, "
@@ -108,6 +115,6 @@ public class Upload extends HttpServlet {
                 ossClient.shutdown();
             }
         }
-        return null;
+        return url;
     }
 }
