@@ -52,7 +52,9 @@ public class Upload extends HttpServlet {
                     }
                     in.close();
                     out.close();
-                    String url = upload(filename, new File(savePath + "\\" + filename));
+                    File file = new File(savePath + "\\" + filename);
+                    String url = upload(filename, file);
+                    file.delete();
                     response.setContentType("application/json;charset=utf-8");
                     response.setCharacterEncoding("UTF-8");
                     PrintWriter res;
@@ -92,7 +94,6 @@ public class Upload extends HttpServlet {
             putObjectRequest.setMetadata(metadata);
             ossClient.putObject(putObjectRequest);
             url = "https://wantz-pic.oss-cn-shenzhen.aliyuncs.com/tsh/" + filename;
-            file.delete();
 //                System.out.println(url);
 //                System.out.println("https://wantz-pic.oss-cn-shenzhen.aliyuncs.com/tsh/"+filename);
             return url;
