@@ -28,7 +28,7 @@
         </tr>
     </table>
 </form>
-<form action="${pageContext.request.contextPath}/api/addMission" method="post">
+<form action="${pageContext.request.contextPath}/api/addMission" method="get" enctype="multipart/form-data">
     <table>
         <tr>
             <th>
@@ -40,7 +40,9 @@
                 任务名称
             </td>
             <td>
-                <input type="text" name="title" required>
+                <label>
+                    <input type="text" name="title" required>
+                </label>
             </td>
         </tr>
         <tr>
@@ -48,7 +50,9 @@
                 任务描述
             </td>
             <td>
-                <input type="text" name="content">
+                <label>
+                    <input type="text" name="content">
+                </label>
             </td>
         </tr>
         <tr>
@@ -56,7 +60,9 @@
                 任务图片地址
             </td>
             <td>
-                <input type="url" name="icon">
+                <label>
+                    <input type="url" name="icon">
+                </label>
             </td>
         </tr>
         <tr>
@@ -64,7 +70,9 @@
                 任务时间
             </td>
             <td>
-                <input type="datetime-local" name="mdate">
+                <label>
+                    <input type="datetime-local" name="mdate">
+                </label>
             </td>
         </tr>
         <tr>
@@ -72,7 +80,9 @@
                 任务地点
             </td>
             <td>
-                <input type="text" name="mplace">
+                <label>
+                    <input type="text" name="mplace">
+                </label>
             </td>
         </tr>
         <tr>
@@ -80,7 +90,9 @@
                 任务鼓励
             </td>
             <td>
-                <input type="number" name="rewards">
+                <label>
+                    <input type="number" name="rewards">
+                </label>
             </td>
         </tr>
         <tr>
@@ -93,7 +105,7 @@
         </tr>
     </table>
 </form>
-<form action="${pageContext.request.contextPath}/api/getMissionList" method="post">
+<form action="${pageContext.request.contextPath}/api/getMissionList" method="get" enctype="multipart/form-data">
     <table>
         <tr>
             <th>
@@ -105,7 +117,9 @@
                 获取页数
             </td>
             <td>
-                <input type="number" name="page" value="1" required>
+                <label>
+                    <input type="number" name="page" value="1" required>
+                </label>
             </td>
         </tr>
         <tr>
@@ -113,19 +127,29 @@
                 每页数据
             </td>
             <td>
-                <input type="number" name="limit" value="5" required>
+                <label>
+                    <input type="number" name="limit" value="5" required>
+                </label>
             </td>
         </tr>
         <tr>
             <td>选择地点</td>
             <td>
-                <input type="text" name="place">
+                <label>
+                    <select name="place">
+                        <option value="" selected>全部</option>
+                        <option value="三江楼">三江楼</option>
+                        <option value="三山楼">三山楼</option>
+                    </select>
+                </label>
             </td>
         </tr>
         <tr>
             <td>选择时间范围</td>
             <td>
-                <input type="text" name="timeRange">
+                <label>
+                    <input type="text" name="timeRange">
+                </label>
             </td>
         </tr>
         <tr>
@@ -133,20 +157,54 @@
                 排序字段
             </td>
             <td>
-                <input type="text" name="orderName" value="id" required>
+                <label>
+                    <select name="orderName" required>
+                        <option value="id" selected>id</option>
+                        <option value="mdate">时间</option>
+                        <option value="rewards">奖励</option>
+                    </select>
+                </label>
             </td>
         </tr>
         <tr>
             <td>排序规则</td>
             <td>
-                <input type="radio" value="asc" name="order" checked>
-                <input type="radio" value="desc" name="order">
+                <label>
+                    <input type="radio" value="asc" name="order" checked>
+                    升序
+                </label>
+                <label>
+                    <input type="radio" value="desc" name="order">
+                    降序
+                </label>
             </td>
         </tr>
         <tr>
             <th>
                 <input type="reset">
             </th>
+            <td>
+                <input type="submit">
+            </td>
+        </tr>
+    </table>
+</form>
+<form action="${pageContext.request.contextPath}/api/delMission" method="get" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <th>删除任务</th>
+        </tr>
+        <tr>
+            <td>
+                输入任务id
+            </td>
+            <td>
+                <label>
+                    <input type="text" name="id" required>
+                </label>
+            </td>
+        </tr>
+        <tr>
             <td>
                 <input type="submit">
             </td>

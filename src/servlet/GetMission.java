@@ -13,6 +13,7 @@ import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -21,7 +22,6 @@ import java.util.List;
 @WebServlet("/api/getMissionList")
 public class GetMission extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         //获取请求参数
         String req_page = request.getParameter("page");
         String req_limit = request.getParameter("limit");
@@ -30,12 +30,9 @@ public class GetMission extends HttpServlet {
         String req_orderName = request.getParameter("orderName");
         String req_order = request.getParameter("order");
 
-        //设置默认值
-
         MissionsList missionsList = new MissionsList();
         try {
             String sql = sqlStringGenerate(req_page, req_limit, req_place, req_timeRange, req_orderName, req_order);
-            System.out.println(sql);
             ResultSet resultSet = NonPreStatement.execute(sql);
             List<Mission> missions = new ArrayList<Mission>();
             while (resultSet.next()){
@@ -66,10 +63,8 @@ public class GetMission extends HttpServlet {
 
     private String sqlStringGenerate(String page, String limit, String place, String timeRange, String orderName, String order){
         try {
-            String sql = "select id, icon, title, content, mdate, mplace, rewards from mission ";
-            if (place != null || timeRange != null) if (place.length() != 0 || timeRange.length() != 0) sql = sql + " where ";
-            System.out.println("place=" +place + "v");
-            if (place != null) if (place.length() != 0) sql = sql + "mplace = " + place;
+            String sql = "select id, icon, title, content, mdate, mplace, rewards from mission where status = 'free' ";
+            if (place != null) if (place.length() != 0) sql = sql + " and mplace like '%" + place + "%'";
             if (timeRange != null);//todo:这里要对时间进行转换
             if (orderName != null){
                 if (order == null) order = "asc";
