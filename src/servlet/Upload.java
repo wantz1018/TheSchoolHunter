@@ -4,6 +4,7 @@ import com.aliyun.oss.*;
 import com.aliyun.oss.model.ObjectMetadata;
 import com.aliyun.oss.model.PutObjectRequest;
 import functions.GetALYJson;
+import functions.ResMessage;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
@@ -57,19 +58,12 @@ public class Upload extends HttpServlet {
                     file.delete();
                     response.setContentType("application/json;charset=utf-8");
                     response.setCharacterEncoding("UTF-8");
-                    PrintWriter res;
-                    res = response.getWriter();
                     if (!"FileAlreadyExists".equals(url)) {
-                        res.write(
-                                "{\"code\":1, \"message\":\"success\", \"url\":\"" + url + "\"}"
-                        );
+                        ResMessage.resp(response, "{\"code\":1, \"message\":\"success\", \"url\":\"" + url + "\"}");
                     }
                     else{
-                        res.write(
-                                "{\"code\":21, \"message\":\"file already exists\", \"url\":\"null\"}"
-                        );
+                        ResMessage.resp(response, "{\"code\":21, \"message\":\"file already exists\", \"url\":\"null\"}");
                     }
-                    res.close();
                 }
             }
         } catch (Exception e){
@@ -94,17 +88,9 @@ public class Upload extends HttpServlet {
             putObjectRequest.setMetadata(metadata);
             ossClient.putObject(putObjectRequest);
             url = "https://wantz-pic.oss-cn-shenzhen.aliyuncs.com/tsh/" + filename;
-//                System.out.println(url);
-//                System.out.println("https://wantz-pic.oss-cn-shenzhen.aliyuncs.com/tsh/"+filename);
             return url;
 
         }catch (OSSException oe) {
-//            System.out.println("Caught an OSSException, which means your request made it to OSS, "
-//                    + "but was rejected with an error response for some reason.");
-//            System.out.println("Error Message:" + oe.getErrorMessage());
-//            System.out.println("Error Code:" + oe.getErrorCode());
-//            System.out.println("Request ID:" + oe.getRequestId());
-//            System.out.println("Host ID:" + oe.getHostId());
             url = oe.getErrorCode();
         } catch (ClientException ce) {
             System.out.println("Caught an ClientException, which means the client encountered "

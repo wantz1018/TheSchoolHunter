@@ -2,6 +2,7 @@ package servlet;
 
 import com.alibaba.fastjson.JSONObject;
 import database.PreStatement;
+import functions.ResMessage;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -16,8 +17,6 @@ import java.util.Enumeration;
 public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("application/json;charset=utf-8");
-        response.setCharacterEncoding("UTF-8");
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
@@ -32,8 +31,6 @@ public class Login extends HttpServlet {
         }
 
         ResultSet resultSet;
-        PrintWriter res;
-        res = response.getWriter();
         String sql = "select id, username, password from yonghu where username = ? and password = ?";
         String str;
         try {
@@ -45,6 +42,7 @@ public class Login extends HttpServlet {
             else{
                 //登录成功
                 str = "{\"code\":1, \"message\":\"success\"}";
+                request.getSession().setAttribute("role", request.getRemoteAddr()+"usr");
                 request.getSession().setAttribute("username", request.getRemoteAddr()+username);
                 //添加Cookie
                 Cookie cookie = new Cookie("JSESSIONID", request.getSession().getId());
@@ -52,11 +50,9 @@ public class Login extends HttpServlet {
                 cookie.setPath("/");
                 response.addCookie(cookie);
             }
-            res.write(str);
+            ResMessage.resp(response, str);
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
-        } finally {
-            res.close();
         }
 
     }

@@ -1,6 +1,7 @@
 package servlet;
 
 import database.PreStatement;
+import functions.ResMessage;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -20,8 +21,6 @@ public class Register extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         ResultSet resultSet;
-        PrintWriter res;
-        res = response.getWriter();
         String sql = "select password from yonghu where username = ?";
         String str;
         try {
@@ -34,11 +33,9 @@ public class Register extends HttpServlet {
                 resultSet = PreStatement.execute(sql, new String[]{username, password});
                 str = "{\"code\":\"1\",\"message\":\"success\"}";
             }
-            res.write(str);
+            ResMessage.resp(response, str);
         } catch (SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
-        } finally {
-            res.close();
         }
     }
 
