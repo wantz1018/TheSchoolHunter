@@ -24,6 +24,11 @@ public class AddMission extends HttpServlet {
         String mplace = request.getParameter("mplace");
         String rewards = request.getParameter("rewards");
 
+        //设置默认值
+        if (!(icon == null)){
+            if ("".equals(icon)) icon = "https://wantz-pic.oss-cn-shenzhen.aliyuncs.com/tsh/TSH.png";
+        }
+
         try{
             String sql = "insert into mission(icon, content, title, mdate, mplace, rewards) values(?, ?, ?, ?, ?, ?)";
             String[] params = new String[]{
