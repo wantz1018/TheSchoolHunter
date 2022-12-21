@@ -27,7 +27,7 @@ public class AddMission extends HttpServlet {
         try{
             String sql = "insert into mission(icon, content, title, mdate, mplace, rewards) values(?, ?, ?, ?, ?, ?)";
             String[] params = new String[]{
-                    icon, content, title, mdate, mplace, rewards
+                    icon, content, title, mdate, String.valueOf(mplace), rewards
             };
             PreStatement.execute(sql, params);
             ResultSet resultSet = NonPreStatement.execute("select max(id) as id from mission");

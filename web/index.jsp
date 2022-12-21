@@ -71,7 +71,7 @@
             </td>
             <td>
                 <label>
-                    <input type="datetime-local" name="mdate">
+                    <input type="date" name="mdate">
                 </label>
             </td>
         </tr>
@@ -148,7 +148,13 @@
             <td>选择时间范围</td>
             <td>
                 <label>
-                    <input type="text" name="timeRange">
+                    <select name="timeRange">
+                        <option value="all" selected>全部</option>
+                        <option value="today">今天</option>
+                        <option value="threeDays">三天内</option>
+                        <option value="fiveDays">五天内</option>
+                        <option value="oneWeek">一周内</option>
+                    </select>
                 </label>
             </td>
         </tr>

@@ -7,6 +7,7 @@ import database.NonPreStatement;
 import database.PreStatement;
 import com.alibaba.fastjson.JSONObject;
 import functions.ResMessage;
+import functions.TransTimeRange;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -16,7 +17,9 @@ import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @WebServlet("/api/getMissionList")
@@ -65,7 +68,13 @@ public class GetMission extends HttpServlet {
         try {
             String sql = "select id, icon, title, content, mdate, mplace, rewards from mission where status = 'free' ";
             if (place != null) if (place.length() != 0) sql = sql + " and mplace like '%" + place + "%'";
-            if (timeRange != null);//todo:这里要对时间进行转换
+            if (timeRange != null)
+                if (!"all".equals(timeRange)){
+                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                    Date before = new Date();
+                    Date after = TransTimeRange.future(before, timeRange);
+                    sql = sql + " and mdate between '" + sdf.format(before) + "' and '" + sdf.format(after) + "'";
+            }
             if (orderName != null){
                 if (order == null) order = "asc";
                 sql = sql + " order by " + orderName + " " + order;
@@ -73,7 +82,7 @@ public class GetMission extends HttpServlet {
             if (page == null) page = "1";
             if (limit == null) limit = "5";
             sql = sql + " limit " + limit + " offset " + (Integer.parseInt(page) - 1) * Integer.parseInt(limit);
-
+            System.out.println(sql);
             return sql;
         } catch (Exception e) {
             throw new RuntimeException(e);
