@@ -23,18 +23,15 @@ public class GetMyMission extends HttpServlet {
         String page = request.getParameter("page");
         String limit = request.getParameter("limit");
 
-        if (page != null)
-            if ("".equals(page))
-                page = "1";
-            else page = "1";
+        if (page == null) page = "1";
+        else if ("".equals(page))
+            page = "1";
 
-        if (limit != null)
-            if ("".equals(limit))
+        if (limit == null) limit = "10";
+        else if ("".equals(limit))
                 limit = "10";
-            else limit = "10";
-
-        assert page != null;
-        assert limit != null;
+        System.out.println(page);
+        System.out.println(limit);
 
         MissionsList sendMissionsList = new MissionsList();
         MissionsList receiveMissionsList = new MissionsList();
@@ -42,6 +39,7 @@ public class GetMyMission extends HttpServlet {
         try {
             if (PreStatement.execute(sql, new String[]{uid}).next()){
                 sql = "select * from ttasks where m_id in (select m_id from record where send_id = ?) limit " + limit + " offset " +  (Integer.parseInt(page) - 1) * Integer.parseInt(limit);
+                System.out.println(sql);
                 ResultSet sendSet = PreStatement.execute(sql, new String[]{uid});
                 sql = "select * from ttasks where m_id in (select m_id from record where receive_id = ?) limit " + limit + " offset " +  (Integer.parseInt(page) - 1) * Integer.parseInt(limit);
                 ResultSet receiveSet = PreStatement.execute(sql, new String[]{uid});
@@ -78,7 +76,7 @@ public class GetMyMission extends HttpServlet {
                 receiveMissionsList.setMission(receiveMissions);
                 String str_receive = JSONObject.toJSONString(receiveMissionsList);
 
-                ResMessage.resp(response, "{\"code\":1,\"message\":\"success\",\"data\":{\"send\":" + str_send + ", \"receive\":" + str_receive + "}}");
+                ResMessage.resp(response, "{\"code\":1,\"message\":\"success\",\"data\":{\"postingMissions\":" + str_send + ", \"acceptedMissions\":" + str_receive + "}}");
 
             }
         } catch (SQLException | ClassNotFoundException e) {
