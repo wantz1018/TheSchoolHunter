@@ -165,9 +165,9 @@
             <td>
                 <label>
                     <select name="orderName" required>
-                        <option value="id" selected>id</option>
-                        <option value="mdate">时间</option>
-                        <option value="rewards">奖励</option>
+                        <option value="m_id" selected>id</option>
+                        <option value="deadline">时间</option>
+                        <option value="points">奖励</option>
                     </select>
                 </label>
             </td>
@@ -207,6 +207,74 @@
             <td>
                 <label>
                     <input type="text" name="id" required>
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit">
+            </td>
+        </tr>
+    </table>
+</form>
+<form action="${pageContext.request.contextPath}/api/receiveMission" method="get">
+    <table>
+        <tr>
+            <th>
+                接受任务
+            </th>
+        </tr>
+        <tr>
+            <td>
+                任务id
+            </td>
+            <td>
+                <label>
+                    <input type="number" name="missionId">
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                发布者id
+            </td>
+            <td>
+                <label>
+                    <input type="number" name="publisherId">
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                领取者id
+            </td>
+            <td>
+                <label>
+                    <input type="number" name="receiverId">
+                </label>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <input type="submit">
+            </td>
+        </tr>
+    </table>
+</form>
+<form action="${pageContext.request.contextPath}/api/finishMission" method="get">
+    <table>
+        <tr>
+            <th>
+                结束任务
+            </th>
+        </tr>
+        <tr>
+            <td>
+                id
+            </td>
+            <td>
+                <label>
+                    <input type="number" name="taskId">
                 </label>
             </td>
         </tr>

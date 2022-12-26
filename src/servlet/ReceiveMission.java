@@ -22,29 +22,21 @@ public class ReceiveMission extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String userId = request.getParameter("userId");
+        String receiverId = request.getParameter("receiverId");
         String missionId = request.getParameter("missionId");
 
         try {
             Date date = new Date();
             Timestamp timestamp = new Timestamp(date.getTime());
-            String sql = "insert into user_mission(userid, missionid, start_time) values(?, ?, ?)";
+            String sql = "update record set acceptdate = ? and receive_id = ? where m_id = ?";
             try {
-                PreStatement.execute(sql, new String[]{userId, missionId, String.valueOf(timestamp)});
+                PreStatement.execute(sql, new String[]{String.valueOf(timestamp), receiverId, missionId});
+                sql = "update ttasks set status = ? where m_id = ?";
+                PreStatement.execute(sql, new String[]{"进行中", missionId});
             } catch (SQLException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
-            sql = "select max(id) as id from user_mission";
-            String id = "-1";
-            try {
-                ResultSet resultSet = NonPreStatement.execute(sql);
-                if (resultSet.next()) {
-                    id = resultSet.getString("id");
-                }
-                ResMessage.resp(response, "{\"code\":1, \"message\":\"success\", \"data\":{\"id\":" + id + "\"start_time\":\"" + timestamp + "\"");
-            } catch (SQLException | ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
+            ResMessage.resp(response, "{\"code\":1, \"message\":\"success\", \"data\":{\"id\":" + missionId + "\"start_time\":\"" + timestamp + "\"");
         } catch (RuntimeException | IOException e) {
             throw new RuntimeException(e);
         }

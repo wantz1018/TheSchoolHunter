@@ -31,7 +31,7 @@ public class Login extends HttpServlet {
         }
 
         ResultSet resultSet;
-        String sql = "select id, username, password from yonghu where username = ? and password = ?";
+        String sql = "select u_id, password, balance, identity from users where u_id = ? and password = ?";
         String str;
         try {
             resultSet = PreStatement.execute(sql, new String[]{username, password});
@@ -41,7 +41,7 @@ public class Login extends HttpServlet {
             }
             else{
                 //登录成功
-                str = "{\"code\":1, \"message\":\"success\"}";
+                str = "{\"code\":1, \"message\":\"success\", \"data\":{\"balance\": " + resultSet.getString("balance") + ", \"identity\":" + resultSet.getArray("identity") + "}}";
                 request.getSession().setAttribute("role", request.getRemoteAddr()+"usr");
                 request.getSession().setAttribute("username", request.getRemoteAddr()+username);
                 //添加Cookie

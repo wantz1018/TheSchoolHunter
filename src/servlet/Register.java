@@ -21,7 +21,7 @@ public class Register extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         ResultSet resultSet;
-        String sql = "select password from yonghu where username = ?";
+        String sql = "select password from users where u_id = ?";
         String str;
         try {
             resultSet = PreStatement.execute(sql, new String[]{username});
@@ -29,7 +29,7 @@ public class Register extends HttpServlet {
                 str = "{\"code\":\"12\",\"message\":\"this user name already exists\"}";
             }
             else{
-                sql = "insert into yonghu(username, password) values(?, ?)";
+                sql = "insert into users(u_id, password) values(?, ?)";
                 resultSet = PreStatement.execute(sql, new String[]{username, password});
                 str = "{\"code\":\"1\",\"message\":\"success\"}";
             }

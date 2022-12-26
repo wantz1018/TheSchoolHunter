@@ -9,6 +9,18 @@ public class Mission {
     private String mplace;
     private String rewards;
 
+    public String getCheckStatus() {
+        return checkStatus;
+    }
+
+    public void setCheckStatus(String checkStatus) {
+        this.checkStatus = checkStatus;
+    }
+
+    private String checkStatus;
+
+
+
     public String getId() {
         return id;
     }

@@ -14,12 +14,13 @@ public class DelMission extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String id = request.getParameter("id");
-        String sql = "update mission set status = 'del' where id = ?";
+        String sql = "update ttasks set status = '已结束' where m_id = ? and check_status = '已通过'";
         String str = "";
         try {
             PreStatement.execute(sql, new String[]{id});
             str = "{\"code\":1, \"message\":\"success\"}";
         } catch (SQLException | ClassNotFoundException e) {
+            e.printStackTrace();
             str = "{\"code\":0, \"message\":\"error\"}";
             throw new RuntimeException(e);
         } finally {
