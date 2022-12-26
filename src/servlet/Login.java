@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.sun.deploy.util.ArrayUtil;
 import database.PreStatement;
 import functions.ResMessage;
+import org.apache.http.HttpStatus;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -27,6 +28,11 @@ public class Login extends HttpServlet {
         response.setHeader("Access-Control-Max-Age", "4200");
         /* 允许跨域的请求头 */
         response.setHeader("Access-Control-Allow-Headers", "*");
+        /*还需要设置允许OPTIONS请求*/
+
+        if ("OPTIONS".equals(request.getMethod())) {
+            response.setStatus(HttpStatus.SC_OK);
+        }
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
