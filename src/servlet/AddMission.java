@@ -21,7 +21,7 @@ public class AddMission extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         String id = String.valueOf(new Date().getTime());
-        String user_id = request.getParameter("UserID");
+        String user_id = request.getParameter("userID");
         String title = request.getParameter("title");
         String mdate = request.getParameter("mdate");
         String content = request.getParameter("content");
