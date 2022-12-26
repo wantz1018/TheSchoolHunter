@@ -19,6 +19,7 @@ import java.util.Enumeration;
 public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setHeader("Access-Control-Allow-Origin", "*");
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
