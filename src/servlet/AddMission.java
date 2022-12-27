@@ -44,6 +44,7 @@ public class AddMission extends HttpServlet {
             resultSet.next();
             String missionID = resultSet.getString("id");
             sql = "insert into record(m_id, send_id, postdate) values(?, ?, ?)";
+            System.out.println(sql);
             PreStatement.execute(sql, new String[]{missionID, user_id, String.valueOf(new Timestamp(new Date().getTime()))});
             ResMessage.resp(response, "{\"code\":1, \"message\":\"success\", \"data\":{\"missionID\":\"" + missionID + "\"}}");
         } catch (SQLException | ClassNotFoundException e) {
