@@ -53,7 +53,7 @@ public class Login extends HttpServlet {
             }
             else{
                 //登录成功
-                str = "{\"code\":1, \"message\":\"success\", \"data\":{\"balance\": " + resultSet.getString("balance") + ", \"identity\":\"" + resultSet.getString("identity") + "\"}}";
+                str = "{\"code\":1, \"message\":\"success\", \"data\":{\"userID\": \"" + username + "\",\"balance\": " + resultSet.getString("balance") + ", \"identity\":\"" + resultSet.getString("identity") + "\"}}";
                 request.getSession().setAttribute("role", request.getRemoteAddr()+"usr");
                 request.getSession().setAttribute("username", request.getRemoteAddr()+username);
                 //添加Cookie
