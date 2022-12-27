@@ -14,8 +14,8 @@ import java.sql.SQLException;
 public class AuditMission extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String UID = request.getParameter("u_id");
-        String MId = request.getParameter("m_id");
+        String UID = request.getParameter("username");
+        String MId = request.getParameter("missionId");
         String status = request.getParameter("status");
         String sql = "select identity from users where u_id = ?";
         try{

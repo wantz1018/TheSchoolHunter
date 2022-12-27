@@ -22,7 +22,7 @@ public class ReceiveMission extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String receiverId = request.getParameter("receiverId");
+        String receiverId = request.getParameter("username");
         String missionId = request.getParameter("missionId");
 
         try {

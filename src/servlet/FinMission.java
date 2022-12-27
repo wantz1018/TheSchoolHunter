@@ -17,7 +17,7 @@ import java.util.Date;
 public class FinMission extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String u_id = request.getParameter("UserId");
+        String u_id = request.getParameter("username");
         String m_id = request.getParameter("missionId");
         String rank = request.getParameter("rank");
         assert m_id != null;

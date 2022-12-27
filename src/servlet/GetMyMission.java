@@ -19,7 +19,7 @@ import java.util.List;
 public class GetMyMission extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String uid = request.getParameter("uid");
+        String uid = request.getParameter("username");
         String page = request.getParameter("page");
         String limit = request.getParameter("limit");
 

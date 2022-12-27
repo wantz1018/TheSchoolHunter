@@ -19,7 +19,7 @@ import java.util.List;
 public class GetAuditMission extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String u_id = request.getParameter("userId");
+        String u_id = request.getParameter("username");
         String page = request.getParameter("page");
         String limit = request.getParameter("limit");
 

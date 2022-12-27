@@ -13,8 +13,8 @@ import java.sql.SQLException;
 public class DelMission extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String uid = request.getParameter("u_id");
-        String id = request.getParameter("m_id");
+        String uid = request.getParameter("username");
+        String id = request.getParameter("missionId");
         String sql = "update ttasks set status = '已结束' where m_id = ? and check_status = '已通过'";
         String str = "";
         try {
