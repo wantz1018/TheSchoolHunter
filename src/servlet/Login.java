@@ -20,15 +20,6 @@ import java.util.Enumeration;
 public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String curOrigin = request.getHeader("Origin");
-        /* 允许跨域的主机地址 */
-        response.setHeader("Access-Control-Allow-Origin", curOrigin == null ? "true" : curOrigin);
-        /* 允许跨域的请求方法GET, POST, HEAD 等 */
-        response.setHeader("Access-Control-Allow-Methods", "*");
-        /* 重新预检验跨域的缓存时间 (s) */
-        response.setHeader("Access-Control-Max-Age", "4200");
-        /* 允许跨域的请求头 */
-        response.setHeader("Access-Control-Allow-Headers", "*");
 
         String username = request.getParameter("username");
         String password = request.getParameter("password");
