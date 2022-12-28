@@ -38,10 +38,10 @@ public class GetMyMission extends HttpServlet {
         String sql = "select * from users where u_id = ?";
         try {
             if (PreStatement.execute(sql, new String[]{uid}).next()){
-                sql = "select * from ttasks where status != '已结束' and m_id in (select m_id from record where send_id = ?) limit " + limit + " offset " +  (Integer.parseInt(page) - 1) * Integer.parseInt(limit);
+                sql = "select * from ttasks where status != '已结束' and check_status = '已通过' and m_id in (select m_id from record where send_id = ?) limit " + limit + " offset " +  (Integer.parseInt(page) - 1) * Integer.parseInt(limit);
                 System.out.println(sql);
                 ResultSet sendSet = PreStatement.execute(sql, new String[]{uid});
-                sql = "select * from ttasks where status != '已结束' and m_id in (select m_id from record where receive_id = ?) limit " + limit + " offset " +  (Integer.parseInt(page) - 1) * Integer.parseInt(limit);
+                sql = "select * from ttasks where status != '已结束' and check_status = '已通过' m_id in (select m_id from record where receive_id = ?) limit " + limit + " offset " +  (Integer.parseInt(page) - 1) * Integer.parseInt(limit);
                 ResultSet receiveSet = PreStatement.execute(sql, new String[]{uid});
 
                 List<Mission> sendMissions = new ArrayList<Mission>();
