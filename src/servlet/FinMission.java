@@ -39,7 +39,7 @@ public class FinMission extends HttpServlet {
                 String send_balance = resultSet.getString("balance");
                 //修改发送方积分
                 sql = "update users set balance = ? where u_id = ?";
-                PreStatement.execute(sql, new String[]{String.valueOf(Integer.parseInt(send_balance) - Integer.parseInt(points)), send_id});
+                PreStatement.execute(sql, new String[]{String.valueOf(Double.valueOf(send_balance).intValue() - Double.valueOf(points).intValue()), send_id});
                 //获取接收方积分
                 sql = "select balance from users where u_id = ?";
                 resultSet = PreStatement.execute(sql, new String[]{receive_id});
