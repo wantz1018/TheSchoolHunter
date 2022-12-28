@@ -19,7 +19,7 @@ public class PreStatement {
         Connection connection;
         PreparedStatement preparedStatement;
         connection = DatabaseConnection.getConnection();
-        preparedStatement = connection.prepareStatement(sql);
+        preparedStatement = connection.prepareStatement(sql,ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_READ_ONLY);
         for (int i=1; i<=params.length; i++){
             preparedStatement.setString(i, params[i-1]);
         }
