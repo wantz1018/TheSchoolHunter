@@ -36,7 +36,7 @@ public class ReceiveMission extends HttpServlet {
             } catch (SQLException | ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
-            ResMessage.resp(response, "{\"code\":1, \"message\":\"success\", \"data\":{\"id\":" + missionId + "\"start_time\":\"" + timestamp + "\"");
+            ResMessage.resp(response, "{\"code\":1, \"message\":\"success\", \"data\":{\"id\":\"" + missionId + "\",start_time\":\"" + timestamp + "\"}}");
         } catch (RuntimeException | IOException e) {
             throw new RuntimeException(e);
         }
