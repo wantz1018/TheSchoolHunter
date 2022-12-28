@@ -17,11 +17,7 @@ import java.util.Date;
 public class ReceiveMission extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        doPost(request, response);
-    }
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String receiverId = request.getParameter("username");
         String missionId = request.getParameter("missionId");
 
@@ -40,5 +36,10 @@ public class ReceiveMission extends HttpServlet {
         } catch (RuntimeException | IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doGet(request, response);
     }
 }
