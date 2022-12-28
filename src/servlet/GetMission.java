@@ -71,7 +71,7 @@ public class GetMission extends HttpServlet {
 
     private String sqlStringGenerate(String page, String limit, String place, String timeRange, String orderName, String order, String status, String checkStatus){
         try {
-            String sql = "select m_id, picurl, title, text, deadline, location, points from ttasks where true";
+            String sql = "select m_id, picurl, title, text, deadline, location, points from ttasks where status = '未领取' and check_status = '已通过' ";
             if (place != null) if (place.length() != 0) sql = sql + " and location like '%" + place + "%'";
             if (timeRange != null)
                 if (!"all".equals(timeRange)){
