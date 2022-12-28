@@ -24,7 +24,7 @@ public class ReceiveMission extends HttpServlet {
         try {
             Date date = new Date();
             Timestamp timestamp = new Timestamp(date.getTime());
-            String sql = "update record set acceptdate = ? and receive_id = ? where m_id = ?";
+            String sql = "update record set acceptdate = ? , receive_id = ? where m_id = ?";
             try {
                 PreStatement.execute(sql, new String[]{String.valueOf(timestamp), receiverId, missionId});
                 sql = "update ttasks set status = ? where m_id = ?";
