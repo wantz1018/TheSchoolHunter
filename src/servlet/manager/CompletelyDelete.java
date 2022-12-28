@@ -14,9 +14,11 @@ import java.sql.SQLException;
 public class CompletelyDelete extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String missionId = request.getParameter("MissionId");
+        String missionId = request.getParameter("missionId");
         String sql = "delete from ttasks where m_id = ?";
         try {
+            PreStatement.execute(sql, new String[]{missionId});
+            sql = "delete from record where m_id = ?";
             PreStatement.execute(sql, new String[]{missionId});
             ResMessage.resp(response, "{\"code\":1,\"message\":\"success\"}");
         } catch (SQLException | ClassNotFoundException e) {
