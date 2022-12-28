@@ -10,7 +10,7 @@ public class GetAllMissionList extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String page = request.getParameter("page");
-        String sql = "select m_id, title, text, location, points, ";
+        String sql = "select m_id, title, text, location, points, send_id, postdate";
     }
 
     @Override

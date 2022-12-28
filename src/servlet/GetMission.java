@@ -39,7 +39,9 @@ public class GetMission extends HttpServlet {
         try {
             String sql = sqlStringGenerate(req_page, req_limit, req_place, req_timeRange, req_orderName, req_order, req_status, req_check_status);
             ResultSet resultSet = NonPreStatement.execute(sql);
+            resultSet.last();
             response.setHeader("x-total-count", String.valueOf(resultSet.getRow()));
+            resultSet = NonPreStatement.execute(sql);
             List<Mission> missions = new ArrayList<Mission>();
             while (resultSet .next()){
                 Mission mission = new Mission();
