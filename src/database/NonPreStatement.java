@@ -11,7 +11,7 @@ public class NonPreStatement {
         Statement statement;
         ResultSet resultSet;
         connection = DatabaseConnection.getConnection();
-        statement = connection.createStatement();
+        statement = connection.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
         resultSet = statement.executeQuery(sql);
         return resultSet;
     }
