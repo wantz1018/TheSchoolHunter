@@ -47,7 +47,7 @@ public class FinMission extends HttpServlet {
                 String receive_balance = resultSet.getString("balance");
                 //修改接收方积分
                 sql = "update users set balance = ? where u_id = ?";
-                PreStatement.execute(sql, new String[]{String.valueOf(Integer.parseInt(receive_balance) + Integer.parseInt(points) * (Double.parseDouble(rank) / 5))});
+                PreStatement.execute(sql, new String[]{String.valueOf(Double.valueOf(receive_balance).intValue() + Double.valueOf(points).intValue() * (Double.parseDouble(rank) / 5))});
                 sql = "update ttasks set status = '已结束' where m_id = ? and check_status = '已通过';" ;
                 PreStatement.execute(sql, new String[]{m_id});
                 sql = "update record set finishdate = ? where m_id = ?;";
