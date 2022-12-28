@@ -36,7 +36,7 @@ public class GetAuditMission extends HttpServlet {
         assert page != null;
         assert limit != null;
         MissionsList missionsList = new MissionsList();
-        String sql = "select * from ttasks where check_status = '未审核' and m_id not in (select m_id from record where send_id = ?) limit " + limit + " offset " + (Integer.parseInt(page) - 1) * Integer.parseInt(limit);
+        String sql = "select * from ttasks where check_status = '待审核' and m_id not in (select m_id from record where send_id = ?) limit " + limit + " offset " + (Integer.parseInt(page) - 1) * Integer.parseInt(limit);
         try {
             ResultSet resultSet = PreStatement.execute(sql, new String[]{u_id});
 

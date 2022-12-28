@@ -1,17 +1,13 @@
 package servlet;
 
-import com.alibaba.fastjson.JSONObject;
-import com.sun.deploy.util.ArrayUtil;
 import database.PreStatement;
 import functions.ResMessage;
-import org.apache.http.HttpStatus;
+
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Enumeration;
