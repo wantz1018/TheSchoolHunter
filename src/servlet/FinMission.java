@@ -30,6 +30,7 @@ public class FinMission extends HttpServlet {
                 resultSet = PreStatement.execute(sql, new String[]{m_id});
                 String send_id = resultSet_1.getString("send_id");
                 String receive_id = resultSet_1.getString("receive_id");
+                resultSet.next();
                 String points = resultSet.getString("points");
                 //获取发送方积分
                 sql = "select balance from users where u_id = ?";
