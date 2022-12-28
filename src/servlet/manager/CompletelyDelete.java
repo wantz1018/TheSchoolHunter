@@ -1,6 +1,7 @@
 package servlet.manager;
 
 import database.NonPreStatement;
+import database.PreStatement;
 import functions.ResMessage;
 
 import javax.servlet.*;
@@ -14,9 +15,9 @@ public class CompletelyDelete extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String missionId = request.getParameter("MissionId");
-        String sql = "delete from ttasks where m_id = " + missionId;
+        String sql = "delete from ttasks where m_id = ?";
         try {
-            NonPreStatement.execute(sql);
+            PreStatement.execute(sql, new String[]{missionId});
             ResMessage.resp(response, "{\"code\":1,\"message\":\"success\"}");
         } catch (SQLException | ClassNotFoundException e) {
             ResMessage.resp(response, "{\"code\":0,\"message\":\"error\"}");
