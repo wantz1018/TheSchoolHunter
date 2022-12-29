@@ -33,7 +33,7 @@ public class AddMission extends HttpServlet {
         if (!(icon == null)){
             if ("".equals(icon)) icon = "https://wantz-pic.oss-cn-shenzhen.aliyuncs.com/tsh/TSH.png";
         }
-
+        System.out.println(icon);
         try{
             String sql = "insert into ttasks(m_id, picurl, text, title, deadline, location, points, status, check_status) values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
             String[] params = new String[]{
